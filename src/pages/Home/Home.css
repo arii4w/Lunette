@@ -3,6 +3,8 @@
     margin: 0;
     padding: 0;
     margin-top: 6rem;
+    position: relative;
+    z-index: 1;
   }
   
   .hero {
@@ -18,6 +20,7 @@
     align-items: center;
     position: relative;
     overflow: hidden;
+    z-index: 1;
   }
   
   /* Crea una capa semitransparente sobre la imagen de fondo */
@@ -28,7 +31,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(248, 178, 163, 0.05); /* Color semitransparente */
+    /*background: rgba(248, 178, 163, 0.05); /* Color semitransparente */
     z-index: 0; /* Asegura que el contenido esté por encima */
   }
   

@@ -3,6 +3,8 @@
     padding: 2rem;
     background-color: var(--color-4);
     min-height: 100vh;
+    margin:0;
+    margin-top: 5rem;
 }
 
 .or-orders-title {

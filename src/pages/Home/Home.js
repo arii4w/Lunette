@@ -1,23 +1,57 @@
 // src/pages/Home.js
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Footer from '../../components/Footer/Footer'; // Importamos el Footer
 import './Home.css';
-import heroImage from '../../assets/image-hero.jpg'; // Importamos la imagen correctamente
+import heroImage from '../../assets/imagen.png'; // Importamos la imagen correctamente
 import Categories from '../../components/Categories/Categories'; // Importamos el componente de categorías
 import Product from '../../components/Product/Product'; // Importamos el componente de productos
+import productService from '../../services/productService';
+import { Link } from 'react-router-dom';
 
-const products = [
-  { id: 1, name: "Aurora", price: "289.90", image: "path/to/image1.jpg" },
-  { id: 2, name: "Luna", price: "289.90", image: "path/to/image2.jpg" },
-  { id: 3, name: "Estrella", price: "289.90", image: "path/to/image3.jpg" },
-  { id: 4, name: "Sol", price: "289.90", image: "path/to/image4.jpg" },
-  { id: 5, name: "Cielo", price: "289.90", image: "path/to/image5.jpg" },
-  { id: 6, name: "Rayo", price: "289.90", image: "path/to/image6.jpg" },
-];
+const FallingPetals = () => {
+  useEffect(() => {
+    const createPetal = () => {
+      const petal = document.createElement('div');
+      petal.className = 'petal';
+      petal.style.left = Math.random() * 100 + '%';
+      petal.style.animationDuration = Math.random() * 3 + 2 + 's';
+      document.querySelector('.falling-petals-container').appendChild(petal);
+      
+      setTimeout(() => {
+        petal.remove();
+      }, 5000);
+    };
+
+    const interval = setInterval(() => {
+      createPetal();
+    }, 300);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  return <div className="falling-petals-container"></div>;
+};
 
 const Home = () => {
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const data = await productService.getProducts();
+        console.log("Productos recibidos:", data); // Para ver la estructura exacta
+        setProducts(data);
+      } catch (error) {
+        console.error("Error al cargar productos:", error);
+      }
+    };
+
+    fetchProducts();
+  }, []);
+
   return (
     <div className="home">
+      <FallingPetals />
       <div className="hero" style={{ backgroundImage: `url(${heroImage})` }}>
         <div className="hero-text">
           <h1 className="hero-title">Bienvenidos a Lunette</h1>
@@ -39,7 +73,14 @@ const Home = () => {
       <h2 className="product-subtitle">Los productos más vendidos</h2>
       <div className="product-list">
         {products.slice(0, 3).map(product => (
-          <Product key={product.id} {...product} />
+          <Product 
+            key={product._id}
+            productId={product._id}
+            name={product.name}
+            price={product.price}
+            image={product.image}
+            description={product.description}
+          />
         ))}
       </div>
 
@@ -52,7 +93,14 @@ const Home = () => {
       <h2 className="product-subtitle">Todos los productos</h2>
       <div className="product-list">
         {products.map(product => (
-          <Product key={product.id} {...product} />
+          <Product 
+            key={product._id}
+            productId={product._id}
+            name={product.name}
+            price={product.price}
+            image={product.image}
+            description={product.description}
+          />
         ))}
       </div>
       
