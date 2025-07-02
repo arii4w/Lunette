@@ -1,6 +1,7 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
-
 const AuthContext = createContext();
+
+
 
 export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -27,7 +28,7 @@ export const AuthProvider = ({ children }) => {
     localStorage.setItem('isAuthenticated', 'true');
     localStorage.setItem('user', JSON.stringify({ _id: userData._id })); // Solo guardamos el _id
 
-    console.log('Usuario guardado en localStorage:', { _id: userData._id });
+    console.log('Usuarioddd guardado en localStorage:', { _id: userData._id });
   };
 
   const logOut = () => {
