@@ -1,30 +1,74 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import Home from './pages/Home'; // Solo la página Home por ahora
 import Header from './components/Header';
 import ProductDetail from './pages/ProductDetail';
 import Cart from './pages/Cart';
 import Profile from './pages/Profile';
 import Register from './pages/Register';
-import Login from './pages/Login';
+import Login from './pages/LoginView/Login';
 import Checkout from './pages/Checkout';
 import Comments from './pages/Comments';
+import PrivateRoute from './components/PrivateRoute';
+import Layout from './components/Layout';
 import './App.css';
 
 const App = () => {
   return (
     <Router>
-      <Header/>
       <Routes>
-        <Route path="/" element={<Home />} /> 
-        <Route path="/home" element={<Home />} /> 
-        <Route path="/product/:id" element={<ProductDetail />} />
-        <Route path="/cart" element={<Cart />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/checkout" element={<Checkout />} />
-        <Route path="/comments" element={<Comments />} /> 
+        {/* Usamos el Layout para envolver todas las rutas */}
+        <Route path="/" element={<Navigate to="/home" replace />} />
+        <Route path="/" element={<Layout />}>
+          <Route path="/home" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          
+          {/* Rutas protegidas */}
+          <Route 
+            path="/product/:id" 
+            element={
+              <PrivateRoute>
+                <ProductDetail />
+              </PrivateRoute>
+            } 
+          />
+          <Route 
+            path="/cart" 
+            element={
+              <PrivateRoute>
+                <Cart />
+              </PrivateRoute>
+            } 
+          />
+          <Route 
+            path="/profile" 
+            element={
+              <PrivateRoute>
+                <Profile />
+              </PrivateRoute>
+            } 
+          />
+          <Route 
+            path="/checkout" 
+            element={
+              <PrivateRoute>
+                <Checkout />
+              </PrivateRoute>
+            } 
+          />
+          <Route 
+            path="/comments" 
+            element={
+              <PrivateRoute>
+                <Comments />
+              </PrivateRoute>
+            } 
+          />
+        </Route>
+
+        {/* Redirección por defecto */}
+        <Route path="/" element={<Navigate to="/home" replace />} />
       </Routes>
     </Router>
   );

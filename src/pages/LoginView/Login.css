@@ -1,0 +1,142 @@
+:root {
+    --color-1: #F0A5B4;
+    --color-2: #BD6571;
+    --color-3: #FFDEEC;
+    --color-4: #F4E6E3;
+    --color-5: #84393F;
+    --color-6: #D1ADB5;
+}
+
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background-color: var(--color-4);
+  font-family: 'Roboto', sans-serif;
+}
+
+.split-container {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.form-side {
+  width: 60%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--color-4);
+  padding: 2rem;
+  box-sizing: border-box;
+}
+
+.image-side {
+  width: 60%;
+  background-image: url('../../assets/image-inicio.png');
+  background-size: cover;
+  background-position: center;
+  filter: brightness(0.5);
+}
+
+.login-form {
+  width: 100%;
+  max-width: 410px;
+  background-color: rgb(245, 239, 239);
+  border-radius: 10px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  color: var(--color-5);
+}
+
+.login-form h2 {
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--color-2);
+  margin-bottom: 1rem;
+}
+
+.subtitle {
+  color: var(--color-5);
+  margin-bottom: 1.5rem;
+}
+
+.error-message {
+  display: flex;
+  align-items: center;
+  background-color: var(--color-2);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  margin-bottom: 1rem;
+  font-size: 14px;
+}
+
+.error-message i {
+  margin-right: 10px;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  color: var(--color-5);
+  margin-bottom: 0.5rem;
+}
+
+.input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 1rem;
+  border: 1px solid var(--color-2);
+  border-radius: 1.3em;
+  font-size: 14px;
+  background-color: whitesmoke;
+  color: var(--color-5);
+  box-sizing: border-box;
+}
+
+.input:focus {
+  border-color: var(--color-1);
+  outline: none;
+}
+
+.btn-cta {
+  width: 100%;
+  padding: 12px;
+  background-color: var(--color-2);
+  color: white;
+  border: none;
+  border-radius: 1.2em;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+  box-sizing: border-box;
+}
+
+.btn-cta:hover {
+  background-color: var(--color-5);
+}
+
+.form-footer {
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.form-footer p {
+  font-size: 14px;
+  color: var(--color-5);
+}
+
+.form-footer .link {
+  color: var(--color-2);
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.form-footer .link:hover {
+  text-decoration: underline;
+}
