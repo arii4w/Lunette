@@ -38,7 +38,7 @@ body, html {
     left: 0;
     right: 0;
     bottom: 0;
-    background: radial-gradient(circle at 30% 50%, var(--color-1) 0%, transparent 60%);
+    background: radial-gradient(circle at 70% 50%, var(--color-1) 0%, transparent 60%);
     opacity: 0.1;
     pointer-events: none;
 }
@@ -61,12 +61,12 @@ body, html {
     background: linear-gradient(45deg, rgba(189, 101, 113, 0.3), rgba(240, 165, 180, 0.3));
 }
 
-.login-form {
+.register-form {
     width: 100%;
-    max-width: 410px;
+    max-width: 450px;
     background: rgba(255, 255, 255, 0.95);
     border-radius: 20px;
-    padding: 2.5rem 2rem;
+    padding: 1.5rem 1rem;
     box-shadow: 
         0 10px 20px rgba(189, 101, 113, 0.1),
         0 6px 6px rgba(189, 101, 113, 0.1),
@@ -76,11 +76,11 @@ body, html {
     border: 1px solid rgba(240, 165, 180, 0.2);
 }
 
-.login-form h2 {
+.register-form h2 {
     font-size: 2.2rem;
     font-weight: bold;
     color: var(--color-2);
-    margin-bottom: 0.5rem;
+    margin-bottom: 1.5rem;
     text-align: center;
     letter-spacing: -0.5px;
 }
@@ -94,21 +94,19 @@ body, html {
 }
 
 .form-group {
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.2rem;
 }
 
 .form-group label {
     display: block;
     font-weight: 500;
     color: var(--color-5);
-    margin-bottom: 0.5rem;
     font-size: 0.9rem;
     letter-spacing: 0.3px;
 }
 
 .input {
     width: 100%;
-    padding: 12px 16px;
     margin-bottom: 0.5rem;
     border: 2px solid var(--color-6);
     border-radius: 12px;
@@ -215,7 +213,7 @@ body, html {
         width: 100%;
         padding: 2rem;
     }
-    .login-form {
+    .register-form {
         padding: 2rem 1.5rem;
     }
 }

@@ -5,7 +5,7 @@ import Header from './components/Header/Header';
 import ProductDetail from './pages/ProductDetail/ProductDetail';
 import Cart from './pages/Cart';
 import Profile from './pages/Profile/Profile';
-import Register from './pages/Register';
+import Register from './pages/RegisterView/Register';
 import Login from './pages/LoginView/Login';
 import Checkout from './pages/Checkout';
 import Comments from './pages/Comments';
