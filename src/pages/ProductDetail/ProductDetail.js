@@ -4,6 +4,11 @@ import './ProductDetail.css'; // Estilos específicos para la vista del producto
 import { useParams } from 'react-router-dom'; // Para obtener el ID del producto
 import { Link } from 'react-router-dom'; // Para navegar hacia atrás o hacia el carrito
 import Comment from '../../components/Comment/Comment'; // Importamos el componente de comentario
+import { FaHeart, FaRegHeart } from 'react-icons/fa';
+
+import { FiActivity } from "react-icons/fi";
+
+
 
 // Datos de ejemplo del producto (esto podría ser dinámico)
 const productData = {
@@ -21,6 +26,14 @@ const commentsData = [
 ];
 
 const ProductDetail = () => {
+
+    const [isHeartFilled, setIsHeartFilled] = useState(false); // Estado del corazón
+
+    const handleHeartClick = () => {
+      setIsHeartFilled(!isHeartFilled);
+    };
+
+
     const { id } = useParams(); // Obtener el id del producto desde la URL
     const [quantity, setQuantity] = useState(1);
     const [newComment, setNewComment] = useState({
@@ -62,9 +75,16 @@ const ProductDetail = () => {
         }
     };
 
+
     return (
         <div className="pd-product-detail">
             <div className="pd-product-detail-container">
+            <button 
+    className={`pd-heart-button ${isHeartFilled ? 'filled' : ''}`} 
+    onClick={handleHeartClick}
+>
+    {isHeartFilled ? '❤️' : '🤍'} {/* Probar con el icono como texto */}
+</button>
                 <div className="pd-product-image">
                     <img src={productData.image} alt={productData.name} />
                 </div>
@@ -91,6 +111,7 @@ const ProductDetail = () => {
 
                     <Link to="/cart" className="pd-view-cart">Ver carrito</Link>
                 </div>
+
             </div>
 
             {/* Sección de dejar un comentario */}

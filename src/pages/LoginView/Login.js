@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import { FaHeart } from 'react-icons/fa';
 import { useAuth } from '../../store/authStore';
 import './Login.css';
 
@@ -29,9 +30,8 @@ const Login = () => {
       });
   
       const data = await response.json();
-      
       console.log('Respuesta del login:', data); // Agregado
-  
+
       if (response.ok) {
         logIn(data); // Guardamos toda la información del usuario
         navigate('/home');
@@ -52,6 +52,7 @@ const Login = () => {
       <div className="form-side">
         <div className="login-form">
           <h2>¡Bienvenido de vuelta!</h2>
+          <FaHeart />
           <p className="subtitle">Ingresa tus credenciales para continuar</p>
           
           {error && (

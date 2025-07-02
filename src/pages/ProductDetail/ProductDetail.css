@@ -178,3 +178,45 @@
     color: #84393f;
     margin-bottom: 1rem;
   }
+
+  .pd-product-detail-container {
+    position: relative;  /* Asegura contenedor relativo */
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+  }
+
+  
+  .pd-heart-button {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: transparent;
+    border: none;
+    font-size: 2rem;
+    color: #BD6571;   /* corazón vacío */
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .pd-heart-button:hover {
+    transform: scale(1.2);
+  }
+  
+  .pd-heart-button.filled {
+    color: #84393F;  /* corazón lleno */
+  }
+  
+  .pd-heart-button.filled:hover {
+    transform: scale(1.3);
+  }
+  
+  
+  
