@@ -27,7 +27,9 @@ const Header = () => {
         <div className="nav-profile">
           {isAuthenticated ? (
             <>
+              <Link to="/profile">
               <button className="profile-button">Perfil</button>
+              </Link>
               <button onClick={logOut} className="logout-button">Cerrar sesión</button>
             </>
           ) : (

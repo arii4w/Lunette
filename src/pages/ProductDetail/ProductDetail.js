@@ -1,9 +1,17 @@
 // src/pages/ProductDetail.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './ProductDetail.css'; // Estilos específicos para la vista del producto
 import { useParams } from 'react-router-dom'; // Para obtener el ID del producto
 import { Link } from 'react-router-dom'; // Para navegar hacia atrás o hacia el carrito
 import Comment from '../../components/Comment/Comment'; // Importamos el componente de comentario
+<<<<<<< HEAD
+import productService from '../../services/productService';
+import commentService from '../../services/commentService';
+
+const ProductDetail = () => {
+    const { id } = useParams();
+    const [product, setProduct] = useState(null);
+=======
 import { FaHeart, FaRegHeart } from 'react-icons/fa';
 
 import { FiActivity } from "react-icons/fi";
@@ -35,11 +43,46 @@ const ProductDetail = () => {
 
 
     const { id } = useParams(); // Obtener el id del producto desde la URL
+>>>>>>> 80c23b63ccf0a58d960157c3d72a47f038a2ef8e
     const [quantity, setQuantity] = useState(1);
-    const [newComment, setNewComment] = useState({
+    const [newComment, setNewComment] = useState({ 
         comment: '',
+        rating: 5 // Valor por defecto
     });
-    const [comments, setComments] = useState(commentsData); // Estado de los comentarios
+    const [comments, setComments] = useState([]);
+    
+    // Función para formatear el precio
+    const formatPrice = (price) => {
+        if (price && price.$numberDecimal) {
+            return price.$numberDecimal;
+        }
+        return price;
+    };
+
+    useEffect(() => {
+        const fetchProductAndComments = async () => {
+            try {
+                // Obtener producto
+                const productsData = await productService.getProducts();
+                const foundProduct = productsData.find(p => p._id === id);
+                if (foundProduct) {
+                    setProduct(foundProduct);
+                    
+                    // Obtener comentarios
+                    const commentsData = await commentService.getCommentsByProductId(id);
+                    setComments(commentsData);
+                }
+            } catch (error) {
+                console.error("Error al cargar datos:", error);
+            }
+        };
+
+        fetchProductAndComments();
+    }, [id]);
+
+    if (!product) {
+        return <div>Cargando...</div>;
+    }
 
     // Función para manejar la cantidad
     const handleQuantityChange = (e) => {
@@ -48,7 +91,7 @@ const ProductDetail = () => {
 
     // Función para agregar al carrito
     const handleAddToCart = () => {
-        alert(`Producto agregado al carrito: ${productData.name}, cantidad: ${quantity}`);
+        alert(`Producto agregado al carrito: ${product.name}, cantidad: ${quantity}`);
     };
 
     // Función para manejar el cambio en el formulario de comentario
@@ -60,18 +103,26 @@ const ProductDetail = () => {
         });
     };
 
-    // Función para enviar un nuevo comentario
+    // Función para manejar el cambio en el rating
+    const handleRatingChange = (newRating) => {
+        setNewComment(prev => ({
+            ...prev,
+            rating: newRating
+        }));
+    };
+
+    // Actualizar handlePostComment para incluir el rating
     const handlePostComment = () => {
         if (newComment.comment.trim()) {
-            setComments([
-                ...comments, 
-                { 
-                    username: 'Anónimo', // O cualquier valor por defecto que prefieras
-                    comment: newComment.comment,
-                    date: new Date().toLocaleDateString()
-                }
-            ]);
-            setNewComment({ comment: '' }); // Limpiar solo el comentario
+            const commentData = {
+                comment: newComment.comment,
+                rating: newComment.rating,
+                date: new Date().toISOString(),
+                username: 'Anónimo' // O el usuario actual si tienes sistema de autenticación
+            };
+            
+            setComments([...comments, commentData]);
+            setNewComment({ comment: '', rating: 5 });
         }
     };
 
@@ -86,13 +137,13 @@ const ProductDetail = () => {
     {isHeartFilled ? '❤️' : '🤍'} {/* Probar con el icono como texto */}
 </button>
                 <div className="pd-product-image">
-                    <img src={productData.image} alt={productData.name} />
+                    <img src={product.image} alt={product.name} />
                 </div>
 
                 <div className="pd-product-info">
-                    <h1 className="pd-product-name">{productData.name}</h1>
-                    <p className="pd-product-price">S/ {productData.price}</p>
-                    <p className="pd-product-description">{productData.description}</p>
+                    <h1 className="pd-product-name">{product.name}</h1>
+                    <p className="pd-product-price">S/ {formatPrice(product.price)}</p>
+                    <p className="pd-product-description">{product.description}</p>
 
                     <div className="pd-quantity-selector">
                         <label htmlFor="quantity">Cantidad:</label>
@@ -117,6 +168,17 @@ const ProductDetail = () => {
             {/* Sección de dejar un comentario */}
             <div className="pd-comment-form">
                 <h3>Deja tu comentario</h3>
+                <div className="rating-selector">
+                    {[1, 2, 3, 4, 5].map((star) => (
+                        <span
+                            key={star}
+                            className={`star ${star <= newComment.rating ? 'filled' : 'empty'}`}
+                            onClick={() => handleRatingChange(star)}
+                        >
+                            ★
+                        </span>
+                    ))}
+                </div>
                 <div className="pd-comment-input-container">
                     <textarea
                         name="comment"
@@ -133,14 +195,16 @@ const ProductDetail = () => {
 
             {/* Sección de comentarios */}
             <div className="pd-comments-section">
-                <h2>Comentarios</h2>
+                <h3>Comentarios</h3>
                 <div className="pd-comments-list">
                     {comments.map((comment, index) => (
                         <Comment
-                            key={index}
-                            username={comment.username}
+                            key={comment._id || index}
+                            userId={comment.user_id}
                             comment={comment.comment}
-                            date={comment.date}
+                            date={comment.created_at}
+                            rating={comment.rating}
+                            additional_photos={comment.additional_photos}
                         />
                     ))}
                 </div>

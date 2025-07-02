@@ -8,11 +8,11 @@ const API_URL = 'http://20.169.245.239:5000/products/ls';
 const getProducts = async () => {
   try {
     const response = await axios.get(`${API_URL}`);
-    console.log("Respuesta recibida:", response.data);  // Verifica la respuesta aquí
-    return response.data; // Devolvemos los datos de las órdenes
+    console.log("Datos crudos recibidos:", JSON.stringify(response.data, null, 2));
+    return response.data;
   } catch (error) {
-    console.error("Error al obtener las órdenes:", error);
-    throw error; // Lanzamos el error para que pueda ser manejado en el componente
+    console.error("Error al obtener los productos:", error);
+    throw error;
   }
 };
 

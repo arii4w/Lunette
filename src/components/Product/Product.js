@@ -3,7 +3,15 @@ import React from 'react';
 import { Link } from 'react-router-dom'; // Para hacer el producto clickeable
 import './Product.css'; // Estilos específicos para el producto
 
-const Product = ({ image, name, price, productId }) => {
+const Product = ({ image, name, price, productId, description }) => {
+  // Convertir el precio si viene en formato MongoDB
+  const formatPrice = (price) => {
+    if (price && price.$numberDecimal) {
+      return price.$numberDecimal;
+    }
+    return price;
+  };
+
   return (
     <div className="product">
       <Link to={`/product/${productId}`} className="product-link">
@@ -12,7 +20,8 @@ const Product = ({ image, name, price, productId }) => {
         </div>
         <div className="product-info">
           <p className="product-name">{name}</p>
-          <p className="product-price">s/ {price}</p>
+          <p className="product-price">S/ {formatPrice(price)}</p>
+          {description && <p className="product-description">{description}</p>}
         </div>
       </Link>
     </div>

@@ -1,0 +1,68 @@
+.profile {
+    padding: 2rem;
+    background-color: #f4e6e3;
+    min-height: 100vh;
+    margin:0;
+    padding:0;
+    margin-top: 6rem;
+  }
+  
+  .profile-header {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  
+  .profile-photo {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 1rem;
+  }
+  
+  .profile h1 {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #84393f;
+  }
+  
+  .profile p {
+    color: #666;
+  }
+  
+  .profile-addresses,
+  .profile-cards,
+  .profile-favorites {
+    margin-top: 2rem;
+  }
+  
+  .profile-addresses h2,
+  .profile-cards h2,
+  .profile-favorites h2 {
+    font-size: 1.8rem;
+    font-weight: 500;
+    color: #84393f;
+  }
+  
+  .profile-address {
+    background: #fff;
+    padding: 1rem;
+    margin: 1rem 0;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .profile-card {
+    background: #fff;
+    padding: 1rem;
+    margin: 1rem 0;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .product-cards {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  
