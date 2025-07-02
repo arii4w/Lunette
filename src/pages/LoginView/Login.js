@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { FaHeart } from 'react-icons/fa';
+//import { FaHeart } from 'react-icons/fa';
 import { useAuth } from '../../store/authStore';
 import './Login.css';
 
@@ -52,7 +52,7 @@ const Login = () => {
       <div className="form-side">
         <div className="login-form">
           <h2>¡Bienvenido de vuelta!</h2>
-          <FaHeart />
+          {/*<FaHeart />*/}
           <p className="subtitle">Ingresa tus credenciales para continuar</p>
           
           {error && (
