@@ -1,0 +1,39 @@
+/* src/components/Categories.css */
+.categories {
+    text-align: center;
+    margin: 4rem 0;
+  }
+  
+  .categories h2 {
+    font-size: 1.5rem; /* Reducido de 2rem */
+    color: #84393f; /* Color del título */
+  }
+  
+  .category-list {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+  }
+  
+  .category-item {
+    width: 150px;
+    height: 150px;
+    background-color: #f4e6e3;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+  }
+  
+  .category-item:hover {
+    background-color: #f0a5b4; /* Color al pasar el mouse */
+  }
+  
+  .category-item p {
+    font-size: 1rem; /* Reducido de 1.2rem */
+    color: #84393f;
+    font-weight: bold;
+  }
+  
