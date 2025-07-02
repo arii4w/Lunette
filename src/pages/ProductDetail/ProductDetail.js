@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import './ProductDetail.css'; // Estilos específicos para la vista del producto
 import { useParams } from 'react-router-dom'; // Para obtener el ID del producto
 import { Link } from 'react-router-dom'; // Para navegar hacia atrás o hacia el carrito
-import Comment from '../components/Comment'; // Importamos el componente de comentario
+import Comment from '../../components/Comment/Comment'; // Importamos el componente de comentario
 
 // Datos de ejemplo del producto (esto podría ser dinámico)
 const productData = {

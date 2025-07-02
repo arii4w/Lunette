@@ -1,8 +1,8 @@
 // src/pages/Orders.js
 import React, { useState, useEffect } from 'react';
 import './Orders.css';
-import orderService from '../services/orderService'; // Importamos el servicio
-import OrderCard from '../components/OrderCard'; // Importamos el nuevo componente
+import orderService from '../../services/orderService'; // Importamos el servicio
+import OrderCard from '../../components/OrderCard/OrderCard'; // Importamos el nuevo componente
 
 const Orders = () => {
   const [orders, setOrders] = useState([]); // Estado para almacenar las órdenes
