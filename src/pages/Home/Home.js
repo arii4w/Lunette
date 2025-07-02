@@ -1,10 +1,10 @@
 // src/pages/Home.js
 import React from 'react';
-import Footer from '../components/Footer'; // Importamos el Footer
+import Footer from '../../components/Footer/Footer'; // Importamos el Footer
 import './Home.css';
-import heroImage from '../assets/image-hero.jpg'; // Importamos la imagen correctamente
-import Categories from '../components/Categories'; // Importamos el componente de categorías
-import Product from '../components/Product'; // Importamos el componente de productos
+import heroImage from '../../assets/image-hero.jpg'; // Importamos la imagen correctamente
+import Categories from '../../components/Categories/Categories'; // Importamos el componente de categorías
+import Product from '../../components/Product/Product'; // Importamos el componente de productos
 
 const products = [
   { id: 1, name: "Aurora", price: "289.90", image: "path/to/image1.jpg" },

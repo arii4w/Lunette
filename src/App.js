@@ -1,14 +1,15 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
-import Home from './pages/Home'; // Solo la página Home por ahora
-import Header from './components/Header';
-import ProductDetail from './pages/ProductDetail';
+import Home from './pages/Home/Home'; // Solo la página Home por ahora
+import Header from './components/Header/Header';
+import ProductDetail from './pages/ProductDetail/ProductDetail';
 import Cart from './pages/Cart';
 import Profile from './pages/Profile';
 import Register from './pages/Register';
 import Login from './pages/LoginView/Login';
 import Checkout from './pages/Checkout';
 import Comments from './pages/Comments';
+import Orders from './pages/Orders/Orders';
 import PrivateRoute from './components/PrivateRoute';
 import Layout from './components/Layout';
 import './App.css';
@@ -54,6 +55,14 @@ const App = () => {
             element={
               <PrivateRoute>
                 <Checkout />
+              </PrivateRoute>
+            } 
+          />
+          <Route 
+            path="/orders" 
+            element={
+              <PrivateRoute>
+                <Orders />
               </PrivateRoute>
             } 
           />
