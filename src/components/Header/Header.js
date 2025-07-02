@@ -13,31 +13,35 @@ const Header = () => {
         <h1>Lunette</h1>
       </div>
 
-      {!isAuthenticated ? (
-        <div className="nav-groups">
-          {/* Grupo de opciones */}
+      <div className="nav-groups">
+        {/* Grupo de opciones */}
+        {isAuthenticated ? (
           <div className="nav-options">
             <Link to="/" className="nav-link">Inicio</Link>
             <Link to="/cart" className="nav-link">Carrito</Link>
             <Link to="/orders" className="nav-link">Órdenes</Link>
           </div>
+        ) : null} {/* Solo se muestra si el usuario está autenticado */}
 
-          {/* Grupo de perfil */}
-          <div className="nav-profile">
-            <button className="profile-button">Perfil</button>
-            <button onClick={logOut} className="logout-button">Cerrar sesión</button>
-          </div>
+        {/* Grupo de perfil / Autenticación */}
+        <div className="nav-profile">
+          {isAuthenticated ? (
+            <>
+              <button className="profile-button">Perfil</button>
+              <button onClick={logOut} className="logout-button">Cerrar sesión</button>
+            </>
+          ) : (
+            <>
+              <Link to="/login">
+                <button className="auth-button">Iniciar sesión</button>
+              </Link>
+              <Link to="/register">
+                <button className="auth-button">Crear Cuenta</button>
+              </Link>
+            </>
+          )}
         </div>
-      ) : (
-        <nav className="nav-auth">
-          <Link to="/login">
-            <button className="auth-button">Iniciar sesión</button>
-          </Link>
-          <Link to="/register">
-            <button className="auth-button">Crear Cuenta</button>
-          </Link>
-        </nav>
-      )}
+      </div>
     </header>
   );
 };
