@@ -1,0 +1,180 @@
+/* src/pages/ProductDetail.css */
+.pd-product-detail {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    background-color: #f4e6e3;
+    margin: 0;
+    padding: 0;
+    margin-top: 6rem;
+  }
+  
+  .pd-product-detail-container {
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+  }
+  
+  .pd-product-image img {
+    max-width: 400px;
+    width: 100%;
+    border-radius: 10px;
+  }
+  
+  .pd-product-info {
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .pd-product-name {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #84393f;
+    margin-bottom: 1rem;
+  }
+  
+  .pd-product-price {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #84393f;
+    margin-bottom: 1rem;
+  }
+  
+  .pd-product-description {
+    font-size: 1rem;
+    color: #666;
+    margin-bottom: 2rem;
+    line-height: 1.5;
+  }
+  
+  .pd-quantity-selector {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  
+  .pd-quantity-selector input {
+    width: 60px;
+    padding: 0.5rem;
+    font-size: 1rem;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+  }
+  
+  .pd-add-to-cart {
+    background-color: #84393f;
+    color: white;
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .pd-add-to-cart:hover {
+    background-color: #f0a5b4;
+  }
+  
+  .pd-view-cart {
+    color: #84393f;
+    font-size: 1rem;
+    text-decoration: none;
+    margin-top: 1rem;
+  }
+  
+  .pd-view-cart:hover {
+    text-decoration: underline;
+  }
+  
+  /* Estilos para la sección de comentarios */
+  .pd-comment-form {
+    background-color: white;
+    padding: 1.5rem;
+    border-radius: 15px;
+    margin-top: 2rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    width: 100%;
+    max-width: 800px;
+  }
+  
+  .pd-comment-form h3 {
+    font-size: 1.2rem;
+    color: #84393f;
+    margin-bottom: 1rem;
+    text-align: left;
+  }
+  
+  .pd-comment-input-container {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+  
+  .pd-textarea {
+    flex: 1;
+    padding: 1rem;
+    font-size: 0.9rem;
+    border: 2px solid #f0a5b4;
+    border-radius: 25px;
+    min-height: 50px;
+    resize: none;
+    transition: all 0.3s ease;
+  }
+  
+  .pd-textarea:focus {
+    outline: none;
+    border-color: #84393f;
+    box-shadow: 0 2px 8px rgba(132, 57, 63, 0.1);
+  }
+  
+  .pd-submit-comment {
+    background-color: #84393f;
+    color: white;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    font-size: 20px;
+    font-weight: bold;
+  }
+  
+  .pd-submit-comment:hover {
+    background-color: #f0a5b4;
+    transform: translateY(-2px);
+  }
+  
+  .pd-comments-section {
+    margin-top: 3rem;
+    text-align: center;
+    padding: 2rem;
+    border-radius: 10px;
+  }
+  
+  .pd-comments-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    align-items: center;
+  }
+  
+  .pd-comments-section h2 {
+    font-size: 1.2rem;
+    color: #84393f;
+    margin-bottom: 1rem;
+  }

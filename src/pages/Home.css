@@ -1,0 +1,119 @@
+/* src/pages/Home.css */
+.home {
+    margin: 0;
+    padding: 0;
+    margin-top: 6rem;
+  }
+  
+  .hero {
+    background-size: cover;
+    background-position: center;
+    color: white;
+    text-align: center;
+    padding: 5rem 2rem;
+    height: 100vh; /* Altura completa de la pantalla */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  /* Crea una capa semitransparente sobre la imagen de fondo */
+  .hero::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(248, 178, 163, 0.05); /* Color semitransparente */
+    z-index: 0; /* Asegura que el contenido esté por encima */
+  }
+  
+  .hero-title {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    z-index: 2; /* Asegura que el título esté por encima de la capa semitransparente */
+  }
+  
+  .hero-subtitle {
+    font-size: 1.2rem;
+    font-style: bold;
+    max-width: 600px;
+    margin: 0 auto;
+    z-index:2; /* Asegura que el subtítulo esté por encima de la capa semitransparente */
+  }
+  
+  /* Posicionamos el texto de la frase en la parte inferior derecha */
+  .home-content {
+    text-align: center;
+    width: 50%;
+    margin: 3rem 0;
+    right: 10px; 
+  }
+  
+  .home-description {
+    font-size: 1rem;
+    font-style: italic;
+    color: white;
+  }
+  
+  .categories-section {
+    padding: 2rem;
+    background-color: var(--color-4);
+    margin-top: 2rem;
+  }
+  
+  .product-title {
+    text-align: center;
+    color: var(--color-5);
+    font-size: 1.5rem;
+    margin-top: 2rem;
+    font-weight: bold;
+  }
+  .product-subtitle {
+    text-align: center;
+    color: var(--color-5);
+    font-size: 1.2rem;
+    margin-top: 2rem;
+    font-weight: normal;
+  }
+  
+  
+  .home-content {
+    text-align: center;
+    margin: 3rem;
+  }
+  
+  .home-description {
+    font-size: 1.2rem;
+    font-style: italic;
+    margin-bottom: 2rem;
+    color: var(--color-5);
+  }
+  
+  .product-list {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+  
+  .shipping-info {
+    background-color: #f0a5b4;
+    color: white;
+    text-align: center;
+    padding: 1rem 0;
+    font-size: 1rem;
+    margin-top: 2rem;
+  }
+  
+
+  footer {
+    margin-top: 2rem; /* Asegura que haya espacio entre el contenido y el footer */
+  }
+  
