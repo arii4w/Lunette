@@ -9,9 +9,13 @@ const Profile = () => {
   const [loading, setLoading] = useState(true); // Estado para controlar la carga
   const [favorites, setFavorites] = useState([]); // Estado para almacenar los productos favoritos
 
-  const userId = "6864e6367a786a1395efe718"; // El ID del usuario (esto debería ser dinámico)
 
   useEffect(() => {
+
+    const storedUser = JSON.parse(localStorage.getItem('user'));
+    const userId = storedUser?._id;
+
+
     const fetchUserData = async () => {
       try {
         const fetchedUser = await userService.getUserById(userId); // Obtenemos la info del usuario
@@ -29,7 +33,7 @@ const Profile = () => {
     };
 
     fetchUserData(); // Llamamos la función para cargar la información del usuario
-  }, [userId]);
+  }, []);
 
   if (loading) {
     return <div>Cargando perfil...</div>;
