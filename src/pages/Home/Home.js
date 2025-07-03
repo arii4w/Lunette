@@ -78,7 +78,7 @@ const Home = () => {
             productId={product._id}
             name={product.name}
             price={product.price}
-            image={product.image}
+            image={product.photos[0]}
             description={product.description}
           />
         ))}
@@ -98,7 +98,7 @@ const Home = () => {
             productId={product._id}
             name={product.name}
             price={product.price}
-            image={product.image}
+            image={product.photos[0]}
             description={product.description}
           />
         ))}

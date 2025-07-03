@@ -110,7 +110,7 @@ const ProductDetail = () => {
     {isHeartFilled ? '❤️' : '🤍'} {/* Probar con el icono como texto */}
 </button>
                 <div className="pd-product-image">
-                    <img src={product.image} alt={product.name} />
+                    <img src={product.photos[0]} alt={product.name} />
                 </div>
 
                 <div className="pd-product-info">
