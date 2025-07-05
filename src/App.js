@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-d
 import Home from './pages/Home/Home'; // Solo la página Home por ahora
 import Header from './components/Header/Header';
 import ProductDetail from './pages/ProductDetail/ProductDetail';
-import Cart from './pages/Cart';
+import Cart from './pages/CartView/Cart';
 import Profile from './pages/Profile/Profile';
 import Register from './pages/RegisterView/Register';
 import Login from './pages/LoginView/Login';
@@ -12,6 +12,9 @@ import Comments from './pages/Comments';
 import Orders from './pages/Orders/Orders';
 import PrivateRoute from './components/PrivateRoute';
 import Layout from './components/Layout';
+import CheckoutStep1 from './pages/Checkout/CheckoutStep1';
+import CheckoutStep2 from './pages/Checkout/CheckoutStep2';
+import CheckoutStep3 from './pages/Checkout/CheckoutStep3';
 import './App.css';
 
 const FallingPetals = () => {
@@ -83,6 +86,30 @@ const App = () => {
               </PrivateRoute>
             } 
           />
+          <Route 
+  path="/checkout/step1" 
+  element={
+    <PrivateRoute>
+      <CheckoutStep1 />
+    </PrivateRoute>
+  } 
+/>
+<Route 
+  path="/checkout/step2" 
+  element={
+    <PrivateRoute>
+      <CheckoutStep2 />
+    </PrivateRoute>
+  } 
+/>
+<Route 
+  path="/checkout/step3" 
+  element={
+    <PrivateRoute>
+      <CheckoutStep3 />
+    </PrivateRoute>
+  } 
+/>
           <Route 
             path="/orders" 
             element={

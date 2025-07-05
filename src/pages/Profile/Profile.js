@@ -3,36 +3,45 @@ import './Profile.css';
 import userService from '../../services/userService'; // Importamos el servicio de usuario
 //import ProductCard from '../../components/'; // Importamos un componente para mostrar los productos favoritos
 import commentService from '../../services/commentService'; // Importamos el servicio de comentarios
+import favoriteService from '../../services/favoriteService';
+import Product from '../../components/Product/Product';
+import productService from '../../services/productService'
 
 const Profile = () => {
   const [user, setUser] = useState(null); // Estado para almacenar la información del usuario
   const [loading, setLoading] = useState(true); // Estado para controlar la carga
   const [favorites, setFavorites] = useState([]); // Estado para almacenar los productos favoritos
 
-
   useEffect(() => {
+  const storedUser = JSON.parse(localStorage.getItem('user'));
+  const userId = "6865bca5c6e74d38eae10c45";
 
-    const storedUser = JSON.parse(localStorage.getItem('user'));
-    const userId = storedUser?._id;
+  const fetchUserData = async () => {
+    try {
+      const fetchedUser = await userService.getUserById(userId);
+      setUser(fetchedUser);
 
+      const allProducts = await productService.getProducts();
+      const favorites = await favoriteService.getFavoritesByUser(userId);
 
-    const fetchUserData = async () => {
-      try {
-        const fetchedUser = await userService.getUserById(userId); // Obtenemos la info del usuario
-        if (fetchedUser) {
-          setUser(fetchedUser); // Guardamos la información del usuario
-          setFavorites(fetchedUser.favorites || []); // Guardamos los productos favoritos (si existen)
-        } else {
-          console.error('Error: La respuesta de la API no contiene datos del usuario');
-        }
-      } catch (error) {
-        console.error("Error al cargar los datos del usuario:", error);
-      } finally {
-        setLoading(false); // Termina la carga
-      }
-    };
+      const matchedFavorites = favorites.map(fav => {
+        const product = allProducts.find(p => p._id === fav.product_id);
+        if (!product) return null;
+        return {
+          ...product,
+          favorite_id: fav._id,
+          addedAt: fav.created_at,
+        };
+      }).filter(Boolean);
 
-    fetchUserData(); // Llamamos la función para cargar la información del usuario
+      setFavorites(matchedFavorites);
+    } catch (error) {
+      console.error("Error al cargar perfil:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+    fetchUserData();
   }, []);
 
   if (loading) {
@@ -80,9 +89,22 @@ const Profile = () => {
         <h2>Productos Favoritos</h2>
         {favorites.length > 0 ? (
           <div className="product-cards">
-            {/*{favorites.map((product, index) => (
-              <ProductCard key={product._id} product={product} />
-            ))}*/}
+            {favorites.map((product) => (
+      <div key={product._id} className="product-favorite-wrapper">
+           <Product
+              productId={product._id}
+              name={product.name}
+              price={product.price}
+              image={product.photos?.[0]}
+              description={product.description}
+            />
+            <p className="favorite-added-date">
+            Añadido el: {new Date(product.addedAt).toLocaleDateString()}
+            </p>
+            {/* Si deseas agregar un botón para eliminar el favorito */}
+            {/* <button onClick={() => handleRemoveFavorite(product.favorite_id)}>Eliminar de favoritos</button> */}
+            </div>
+            ))}
           </div>
         ) : (
           <p>No tienes productos favoritos.</p>
