@@ -6,7 +6,6 @@ import { useNavigate } from "react-router-dom";
 
 const Cart = () => {
   const navigate = useNavigate();
-  //const userId = "6865bca5c6e74d38eae10c45";
   const storedUser = JSON.parse(localStorage.getItem('user'));
   const userId = storedUser?._id;
   const [cart, setCart] = useState(null);
@@ -89,47 +88,6 @@ const Cart = () => {
   };
 
   // Función para comprar solo los seleccionados
-  /*const handleBuySelected = async () => {
-    if (selectedProducts.length === 0) {
-      alert("Selecciona al menos un producto para comprar.");
-      return;
-    }
-    try {
-      await cartService.removeProductsFromCart(userId, selectedProducts);
-      alert("Compra realizada. Se eliminaron los productos seleccionados.");
-
-      // Actualizar visualmente
-      const updatedCart = {
-        ...cart,
-        products: cart.products.filter(
-          (p) => !selectedProducts.includes(p.product_id)
-        ),
-      };
-      setCart(updatedCart);
-      setSelectedProducts([]); // limpiar selección
-    } catch (error) {
-      console.error("Error al comprar productos:", error);
-      alert("Hubo un error al procesar la compra.");
-    }
-  };*/
-
-  /*const handleBuySelected = async () => {
-  if (selectedProducts.length === 0) {
-    alert("Selecciona al menos un producto para comprar.");
-    return;
-  }
-
-  const selectedItems = cart.products.filter((p) =>
-    selectedProducts.includes(p.product_id)
-  );
-
-  // 👉 Guarda los productos seleccionados en localStorage
-  localStorage.setItem("checkout_products", JSON.stringify(selectedItems));
-
-  // 🔁 Redirige a la pasarela de pago (CheckoutStep1)
-  navigate("/checkout");
-  };*/
-
   const handleBuySelected = () => {
     if (selectedProducts.length === 0) {
       alert("Selecciona al menos un producto para comprar.");
@@ -153,7 +111,6 @@ const Cart = () => {
       }, 0)
       .toFixed(2);
 
-    // Guardar los datos en localStorage (puedes cambiar esto si usas Context)
     localStorage.setItem(
       "checkoutProducts",
       JSON.stringify({

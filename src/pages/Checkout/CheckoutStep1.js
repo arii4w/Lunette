@@ -9,7 +9,6 @@ const CheckoutStep1 = ({ checkoutData, setCheckoutData, nextStep }) => {
   const [useSavedAddress, setUseSavedAddress] = useState(false);
   const [useSavedCard, setUseSavedCard] = useState(false);
 
-  //const userId = "6865bca5c6e74d38eae10c45";
   const storedUser = JSON.parse(localStorage.getItem("user"));
   const userId = storedUser?._id;
 
@@ -82,15 +81,40 @@ const CheckoutStep1 = ({ checkoutData, setCheckoutData, nextStep }) => {
 
     try {
       if (!useSavedAddress && updatedAddress?.full_address) {
+        // Guardar dirección si es nueva
         if (updatedAddress.save) {
           const savedAddress = await checkoutService.addAddress(
             userId,
             updatedAddress.full_address
           );
+          //updatedAddress = savedAddress;
+          /*alert(
+            "Datos de dirección guardados:\n" +
+              JSON.stringify(savedAddress, null, 2)
+          );
+          //const latestAddress = addresses[addresses.length - 1];
+          //alert("Datos de tarjeta guardados:\n" + JSON.stringify(latestAddress, null, 2));
+          //updatedAddress = {
+          //address_id: savedAddress._id,
+          ////full_address: savedAddress.full_address,
+          //full_address: updatedAddress.full_address,
+
+          //address_id: savedAddress._id || savedAddress.address_id,
+          //full_address: savedAddress.full_address,
+          //};*/
+
+          const updatedAddresses = await checkoutService.getAddresses(userId);
+          const matchedAddress = updatedAddresses.find(
+            (addr) => addr.full_address === updatedAddress.full_address
+          );
+
+          if (!matchedAddress) {
+            alert("No se encontró la dirección recién agregada.");
+            return;
+          }
           updatedAddress = {
-            address_id: savedAddress._id,
-            //full_address: savedAddress.full_address,
-            full_address: updatedAddress.full_address,
+            address_id: matchedAddress.address_id || matchedAddress._id,
+            full_address: matchedAddress.full_address,
           };
         } else {
           updatedAddress = {
@@ -100,9 +124,9 @@ const CheckoutStep1 = ({ checkoutData, setCheckoutData, nextStep }) => {
         }
       }
 
-      // Guardar tarjeta si es nueva
       if (!useSavedCard && updatedCard?.card_number) {
         const lastDigits = updatedCard.card_number.slice(-4);
+        // Guardar tarjeta si es nueva
         if (updatedCard.save) {
           const newCard = {
             card_number: updatedCard.card_number,
@@ -111,19 +135,46 @@ const CheckoutStep1 = ({ checkoutData, setCheckoutData, nextStep }) => {
             expiration_month_year: updatedCard.expiration_month_year,
             cvv: updatedCard.cvv,
           };
-          alert("🧪 Datos de tarjeta a guardar:\n" + JSON.stringify(newCard, null, 2));
+          /*alert(
+            "Datos de tarjeta a guardar:\n" +
+              JSON.stringify(newCard, null, 2)
+          );*/
           const savedCard = await checkoutService.addCard(userId, newCard);
-          alert("🧪 Datos de tarjeta guardados:\n" + JSON.stringify(savedCard, null, 2));
-          updatedCard = {
-            /*//card_id: savedCard.card_id, // del backend
+          /*alert(
+            "Datos de tarjeta guardados:\n" +
+              JSON.stringify(savedCard, null, 2)
+          );*/
+          //const latestCard = cards[cards.length - 1];
+          //alert("Datos de tarjeta guardados:\n" + JSON.stringify(latestCard, null, 2));
+          //updatedCard = savedCard;
+          //updatedCard = {
+          /*//card_id: savedCard.card_id, // del backend
             card_id: savedCard._id,
             //last_digits: updatedCard.card_number.slice(-4), // usamos el original, no el del backend
             last_digits: savedCard.last_digits,
             card_type: savedCard.card_type,*/
 
-            card_id: savedCard._id,
-            last_digits: updatedCard.card_number.slice(-4),
-            card_type: updatedCard.card_type,
+          //card_id: savedCard.card_id,
+          //last_digits: updatedCard.card_number.slice(-4),
+          //card_type: updatedCard.card_type,
+
+          //card_id: latestCard._id || latestCard.card_id,
+          //last_digits: latestCard.card_number.slice(-4),
+          //card_type: latestCard.card_type,
+          //};
+          const cards = await checkoutService.getCards(userId);
+          const matchedCard = cards.find((c) =>
+            c.card_number.endsWith(lastDigits)
+          );
+
+          if (!matchedCard) {
+            alert("No se encontró la tarjeta recién agregada.");
+            return;
+          }
+          updatedCard = {
+            card_id: matchedCard.card_id || matchedCard._id,
+            last_digits: lastDigits,
+            card_type: matchedCard.card_type,
           };
         } else {
           updatedCard = {
@@ -135,21 +186,12 @@ const CheckoutStep1 = ({ checkoutData, setCheckoutData, nextStep }) => {
       }
 
       // Actualizar estado global
-      /*setCheckoutData((prev) => ({
-        ...prev,
-        address: updatedAddress,
-        card: updatedCard,
-      }));*/
       setCheckoutData((prev) => {
         const newData = {
           ...prev,
           address: updatedAddress,
           card: updatedCard,
         };
-        console.log(
-          "✅ Datos finales del checkout antes de nextStep:",
-          newData
-        );
         return newData;
       });
       nextStep();

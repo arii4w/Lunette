@@ -17,7 +17,6 @@ const ProductDetail = () => {
 
   const [favoriteRecord, setFavoriteRecord] = useState(null); // Guardar el _id de favoritos
   const storedUser = JSON.parse(localStorage.getItem("user"));
-  //const userId = "6865bca5c6e74d38eae10c45";
   const userId = storedUser?._id;
 
   useEffect(() => {
@@ -146,19 +145,6 @@ const ProductDetail = () => {
   };
 
   // Actualizar handlePostComment para incluir el rating
-  /*const handlePostComment = () => {
-    if (newComment.comment.trim()) {
-      const commentData = {
-        comment: newComment.comment,
-        rating: newComment.rating,
-        date: new Date().toISOString(),
-        username: "Anónimo", // O el usuario actual si tienes sistema de autenticación
-      };
-
-      setComments([...comments, commentData]);
-      setNewComment({ comment: "", rating: 5 });
-    }
-  };*/
   const handlePostComment = async () => {
   if (newComment.comment.trim()) {
     try {

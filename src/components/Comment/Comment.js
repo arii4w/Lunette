@@ -1,6 +1,6 @@
 // src/components/Comment.js
 import React, { useEffect, useState } from 'react';
-import './Comment.css'; // Estilos específicos para los comentarios
+import './Comment.css';
 import userService from '../../services/userService';
 
 const Comment = ({ userId, comment, date, rating, additional_photos }) => {

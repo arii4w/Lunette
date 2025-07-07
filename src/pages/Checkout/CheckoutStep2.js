@@ -16,9 +16,9 @@ const CheckoutStep2 = ({
 
   const handleConfirm = async () => {
     try {
-      alert("🧾 Dirección:\n" + JSON.stringify(address, null, 2));
-      alert("📇 Tarjeta:\n" + JSON.stringify(card, null, 2));
-      /*if (
+      //alert("🧾 Dirección:\n" + JSON.stringify(address, null, 2));
+      //alert("📇 Tarjeta:\n" + JSON.stringify(card, null, 2));
+      if (
         !address ||
         !address.full_address ||
         !address.address_id ||
@@ -26,23 +26,6 @@ const CheckoutStep2 = ({
         !card.card_id
       ) {
         alert("Faltan datos de dirección o tarjeta.");
-        return;
-      }*/
-
-      if (
-        !address ||
-        !address.full_address ||
-        !address.address_id
-      ) {
-        alert("Faltan datos de dirección");
-        //return;
-      }
-
-      if (
-        !card ||
-        !card.card_id
-      ) {
-        alert("Faltan datos de tarjeta");
         return;
       }
 
@@ -82,26 +65,19 @@ const CheckoutStep2 = ({
         created_at: new Date().toISOString(),
       };
 
-      console.log("🚀 Orden a enviar:", JSON.stringify(payload, null, 2));
-
-      // 1. Crear orden en backend
       const createdOrder = await checkoutService.createOrder(payload);
 
-      // 2. Remover productos comprados del carrito
       const productIds = products.map((p) => p.product_id);
       await cartService.removeProductsFromCart(userId, productIds);
 
-      // 3. Limpiar localStorage temporal
       localStorage.removeItem("checkoutProducts");
 
-      // 4. Actualizar estado global
       setCheckoutData((prev) => ({
         ...prev,
         orderId: createdOrder._id,
         createdAt: createdOrder.created_at,
       }));
 
-      // 5. Avanzar a Confirmación
       nextStep();
     } catch (error) {
       console.error(
