@@ -1,21 +1,19 @@
 // src/components/Layout.js
 import React from 'react';
-import { useLocation } from 'react-router-dom';
-import Header from './Header/Header'; 
 import { Outlet } from 'react-router-dom';
+import Header from './Header/Header';
+import Footer from './Footer/Footer';
+import './Layout.css';
 
 const Layout = () => {
-  const location = useLocation();
-  
-  // Mostrar el Header solo si no estamos en /login o /register
-  const showHeader = location.pathname !== '/login' && location.pathname !== '/register';
-
   return (
-    <div>
-      {showHeader && <Header />}
-      <Outlet /> {/* Este es el lugar donde se cargan las rutas hijas */}
+    <div className="layout-container">
+      <Header />
+      <main className="main-content">
+        <Outlet />
+      </main>
     </div>
   );
 };
 
-export default Layout; // Asegúrate de usar export default
+export default Layout;
