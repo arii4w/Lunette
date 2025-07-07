@@ -1,6 +1,6 @@
 // src/components/Categories.js
 import React from 'react';
-import './Categories.css'; // Estilos específicos para categorías
+import './Categories.css';
 
 const Categories = () => {
   return (

@@ -5,8 +5,8 @@
   }
   
   .categories h2 {
-    font-size: 1.5rem; /* Reducido de 2rem */
-    color: #84393f; /* Color del título */
+    font-size: 1.5rem;
+    color: #84393f;
   }
   
   .category-list {
@@ -28,11 +28,11 @@
   }
   
   .category-item:hover {
-    background-color: #f0a5b4; /* Color al pasar el mouse */
+    background-color: #f0a5b4;
   }
   
   .category-item p {
-    font-size: 1rem; /* Reducido de 1.2rem */
+    font-size: 1rem;
     color: #84393f;
     font-weight: bold;
   }
