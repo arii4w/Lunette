@@ -10,12 +10,39 @@ const CheckoutStep2 = ({
   setCheckoutData,
 }) => {
   const { address, card, products, total } = checkoutData;
-  const userId = "6865bca5c6e74d38eae10c45";
+  //const userId = "6865bca5c6e74d38eae10c45";
+  const storedUser = JSON.parse(localStorage.getItem("user"));
+  const userId = storedUser?._id;
 
   const handleConfirm = async () => {
     try {
-      if (!address || !address.full_address || !card || !card.card_id) {
+      alert("🧾 Dirección:\n" + JSON.stringify(address, null, 2));
+      alert("📇 Tarjeta:\n" + JSON.stringify(card, null, 2));
+      /*if (
+        !address ||
+        !address.full_address ||
+        !address.address_id ||
+        !card ||
+        !card.card_id
+      ) {
         alert("Faltan datos de dirección o tarjeta.");
+        return;
+      }*/
+
+      if (
+        !address ||
+        !address.full_address ||
+        !address.address_id
+      ) {
+        alert("Faltan datos de dirección");
+        //return;
+      }
+
+      if (
+        !card ||
+        !card.card_id
+      ) {
+        alert("Faltan datos de tarjeta");
         return;
       }
 
@@ -41,7 +68,7 @@ const CheckoutStep2 = ({
           $numberDecimal: parseFloat(total).toFixed(2),
         },
         shipping_address: {
-          address_id: address._id,
+          address_id: address._id || address.address_id,
           full_address: address.full_address,
         },
         payment_summary: {

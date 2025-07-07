@@ -21,9 +21,11 @@ const CheckoutStep3 = ({ checkoutData }) => {
       <p><strong>Total:</strong> S/ {parseFloat(total).toFixed(2)}</p>
       <p><strong>Dirección de envío:</strong> {address?.full_address || 'No disponible'}</p>
 
-      <Link to="/home">
-        <button>Volver a la tienda</button>
-      </Link>
+      <div className="button-center">
+        <Link to="/home">
+          <button className="success-button">Volver a la tienda</button>
+        </Link>
+      </div>
     </div>
   );
 };

@@ -6,7 +6,9 @@ import { useNavigate } from "react-router-dom";
 
 const Cart = () => {
   const navigate = useNavigate();
-  const userId = "6865bca5c6e74d38eae10c45";
+  //const userId = "6865bca5c6e74d38eae10c45";
+  const storedUser = JSON.parse(localStorage.getItem('user'));
+  const userId = storedUser?._id;
   const [cart, setCart] = useState(null);
   const [selectedProducts, setSelectedProducts] = useState([]);
   const [loading, setLoading] = useState(true);

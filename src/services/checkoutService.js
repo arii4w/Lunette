@@ -1,6 +1,6 @@
-import axios from 'axios';
+import axios from "axios";
 
-const API_URL = 'http://20.169.245.239:5000';
+const API_URL = "http://20.169.245.239:5000";
 
 const checkoutService = {
   addAddress: async (userId, address) => {
@@ -14,7 +14,12 @@ const checkoutService = {
   addCard: async (userId, card) => {
     const res = await axios.post(`${API_URL}/users/add-card`, {
       user_id: userId,
-      card,
+      card_number: card.card_number,
+      card_type: card.card_type,
+      cardholder_name: card.cardholder_name,
+      expiration_month_year: card.expiration_month_year,
+      cvv: card.cvv,
+      //last_digits: card.last_digits,
     });
     return res.data;
   },

@@ -6,14 +6,6 @@ import CheckoutStep3 from './Checkout/CheckoutStep3';
 
 const Checkout = () => {
   const [step, setStep] = useState(1);
-  /*const [checkoutData, setCheckoutData] = useState({
-    address: {},
-    card: {},
-    products: [],
-    total: 0,
-    orderId: null,
-    createdAt: null
-  });*/
   const [checkoutData, setCheckoutData] = useState(() => {
   const saved = JSON.parse(localStorage.getItem('checkoutProducts')) || {};
   return {

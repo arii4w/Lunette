@@ -7,7 +7,9 @@ import OrderCard from '../../components/OrderCard/OrderCard'; // Importamos el n
 const Orders = () => {
   const [orders, setOrders] = useState([]); // Estado para almacenar las órdenes
   const [loading, setLoading] = useState(true); // Estado para controlar la carga
-  const userId = "6865bca5c6e74d38eae10c45"; // El ID del usuario (esto debería ser dinámico)
+  //const userId = "6865bca5c6e74d38eae10c45"; // El ID del usuario (esto debería ser dinámico)
+  const storedUser = JSON.parse(localStorage.getItem('user'));
+  const userId = storedUser?._id;
 
   useEffect(() => {
     const fetchOrders = async () => {

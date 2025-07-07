@@ -1,3 +1,259 @@
-.checkout-step{
-    margin-top: 20vh;
+/* ===== Contenedor principal ===== */
+.checkout-step {
+  max-width: 600px;
+  margin: 15vh auto 0;
+  padding: 2.5rem;
+  background-color: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  transition: box-shadow 0.3s ease;
+}
+
+.checkout-step:hover {
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.16);
+}
+
+/* ===== Tipografía ===== */
+.checkout-step h2 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  color: #1a1a1a;
+  letter-spacing: -0.02em;
+}
+
+.checkout-step h3 {
+  font-size: 1.2rem;
+  font-weight: 500;
+  margin: 1.5rem 0 0.8rem;
+  color: #333333;
+  letter-spacing: -0.01em;
+}
+
+.checkout-step p {
+  margin: 0.8rem 0;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #555555;
+}
+
+/* ===== Formularios ===== */
+.checkout-step label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  color: #333333;
+}
+
+.checkout-step input[type="text"],
+.checkout-step select,
+.checkout-step textarea {
+  width: 100%;
+  padding: 12px 16px;
+  margin-bottom: 1rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-family: inherit;
+  background-color: #fafafa;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+}
+
+.checkout-step input[type="text"]:focus,
+.checkout-step select:focus,
+.checkout-step textarea:focus {
+  outline: none;
+  border-color: var(--color-2, #007bff);
+  background-color: #ffffff;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+
+.checkout-step textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+/* ===== Sistema de rating ===== */
+.rating-selector {
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+  margin-bottom: 1.5rem;
+}
+
+.rating-selector .star {
+  font-size: 1.8rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+.rating-selector .star:hover {
+  transform: scale(1.1);
+}
+
+.rating-selector .filled {
+  color: #ffd700;
+  text-shadow: 0 0 8px rgba(255, 215, 0, 0.5);
+}
+
+.rating-selector .empty {
+  color: #d0d0d0;
+}
+
+/* ===== Botones ===== */
+.checkout-buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 2.5rem;
+}
+
+.checkout-buttons button {
+  flex: 1;
+  max-width: 200px;
+  background-color: var(--color-2, #007bff);
+  color: white;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 123, 255, 0.2);
+}
+
+.checkout-buttons button:hover {
+  background-color: var(--color-5, #0056b3);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 123, 255, 0.3);
+}
+
+.checkout-buttons button:active {
+  transform: translateY(0);
+}
+
+/* ===== Listas y elementos ===== */
+.checkout-step ul {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 1.5rem;
+}
+
+.checkout-step li {
+  background-color: #f8f9fa;
+  padding: 16px;
+  border-left: 4px solid var(--color-2, #007bff);
+  margin-bottom: 12px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.checkout-step li:hover {
+  background-color: #f0f4f8;
+  transform: translateX(4px);
+}
+
+/* ===== Confirmación de éxito ===== */
+.checkout-step .checkout-success {
+  text-align: center;
+  font-size: 1.1rem;
+  padding: 2rem 0;
+}
+
+.checkout-step .checkout-success strong {
+  display: block;
+  margin-top: 1rem;
+  font-size: 1.2rem;
+  color: var(--color-2);
+}
+
+.checkout-step .checkout-success button {
+  margin-top: 2rem;
+  padding: 12px 30px;
+  background-color: var(--color-2);
+  box-shadow: 0 4px 12px rgba(40, 167, 69, 0.2);
+}
+
+.checkout-step .checkout-success button:hover {
+  background-color: var(--color-2);
+  box-shadow: 0 6px 20px rgba(40, 167, 69, 0.3);
+}
+
+/* ===== Botón específico para Step 3 ===== */
+.checkout-step button {
+  background-color: var(--color-2, #007bff);
+  color: white;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 123, 255, 0.2);
+  margin-top: 2rem;
+  display: inline-block;
+}
+
+.checkout-step button:hover {
+  background-color: var(--color-5, #0056b3);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 123, 255, 0.3);
+}
+
+.checkout-step button:active {
+  transform: translateY(0);
+}
+
+/* Específicamente para el botón de éxito */
+.checkout-step .success-button {
+  background-color: var(--color-2);
+  box-shadow: 0 4px 12px rgba(40, 167, 69, 0.2);
+}
+
+.checkout-step .success-button:hover {
+  background-color: var(--color-5);
+  box-shadow: 0 6px 20px rgba(40, 167, 69, 0.3);
+}
+
+/* Contenedor para centrar el botón */
+.checkout-step .button-center {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+/* ===== Estados de validación ===== */
+.checkout-step .error {
+  border-color: #dc3545 !important;
+  background-color: #fff5f5;
+}
+
+.checkout-step .success {
+  border-color: #28a745 !important;
+  background-color: #f0fff4;
+}
+
+/* ===== Animaciones sutiles ===== */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.checkout-step {
+  animation: fadeIn 0.6s ease-out;
 }

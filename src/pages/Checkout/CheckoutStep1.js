@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import './Checkout.css';
-import checkoutService from '../../services/checkoutService';
+import React, { useState, useEffect } from "react";
+import { ObjectId } from "bson";
+import "./Checkout.css";
+import checkoutService from "../../services/checkoutService";
 
 const CheckoutStep1 = ({ checkoutData, setCheckoutData, nextStep }) => {
   const [addresses, setAddresses] = useState([]);
@@ -8,11 +9,14 @@ const CheckoutStep1 = ({ checkoutData, setCheckoutData, nextStep }) => {
   const [useSavedAddress, setUseSavedAddress] = useState(false);
   const [useSavedCard, setUseSavedCard] = useState(false);
 
-  const userId = "6865bca5c6e74d38eae10c45";
+  //const userId = "6865bca5c6e74d38eae10c45";
+  const storedUser = JSON.parse(localStorage.getItem("user"));
+  const userId = storedUser?._id;
 
   useEffect(() => {
-    if (!checkoutData.address) setCheckoutData(prev => ({ ...prev, address: {} }));
-    if (!checkoutData.card) setCheckoutData(prev => ({ ...prev, card: {} }));
+    if (!checkoutData.address)
+      setCheckoutData((prev) => ({ ...prev, address: {} }));
+    if (!checkoutData.card) setCheckoutData((prev) => ({ ...prev, card: {} }));
   }, []);
 
   useEffect(() => {
@@ -53,40 +57,111 @@ const CheckoutStep1 = ({ checkoutData, setCheckoutData, nextStep }) => {
     let updatedAddress = checkoutData.address;
     let updatedCard = checkoutData.card;
 
+    // Validación de campos obligatorios
+    if (!useSavedAddress && !updatedAddress?.full_address?.trim()) {
+      alert("Por favor ingresa una dirección válida.");
+      return;
+    }
+
+    if (!useSavedCard) {
+      const requiredFields = [
+        "card_number",
+        "card_type",
+        "cardholder_name",
+        "expiration_month_year",
+        "cvv",
+      ];
+      const missing = requiredFields.filter(
+        (field) => !updatedCard?.[field]?.trim()
+      );
+      if (missing.length > 0) {
+        alert("Por favor completa todos los campos de la tarjeta.");
+        return;
+      }
+    }
+
     try {
-      // Guardar dirección si es nueva
-      if (!useSavedAddress && updatedAddress?.save && updatedAddress.full_address) {
-        const savedAddress = await checkoutService.addAddress(userId, updatedAddress.full_address);
-        updatedAddress = savedAddress;
+      if (!useSavedAddress && updatedAddress?.full_address) {
+        if (updatedAddress.save) {
+          const savedAddress = await checkoutService.addAddress(
+            userId,
+            updatedAddress.full_address
+          );
+          updatedAddress = {
+            address_id: savedAddress._id,
+            //full_address: savedAddress.full_address,
+            full_address: updatedAddress.full_address,
+          };
+        } else {
+          updatedAddress = {
+            address_id: new ObjectId().toHexString(),
+            full_address: updatedAddress.full_address,
+          };
+        }
       }
 
       // Guardar tarjeta si es nueva
-      if (!useSavedCard && updatedCard?.save && updatedCard.card_number) {
+      if (!useSavedCard && updatedCard?.card_number) {
         const lastDigits = updatedCard.card_number.slice(-4);
-        const newCard = {
-          card_number: updatedCard.card_number,
-          card_type: updatedCard.card_type,
-          last_digits: lastDigits
-        };
-        const savedCard = await checkoutService.addCard(userId, newCard);
-        updatedCard = {
-          card_id: savedCard._id,
-          last_digits: lastDigits,
-          card_type: savedCard.card_type
-        };
+        if (updatedCard.save) {
+          const newCard = {
+            card_number: updatedCard.card_number,
+            card_type: updatedCard.card_type,
+            cardholder_name: updatedCard.cardholder_name,
+            expiration_month_year: updatedCard.expiration_month_year,
+            cvv: updatedCard.cvv,
+          };
+          alert("🧪 Datos de tarjeta a guardar:\n" + JSON.stringify(newCard, null, 2));
+          const savedCard = await checkoutService.addCard(userId, newCard);
+          alert("🧪 Datos de tarjeta guardados:\n" + JSON.stringify(savedCard, null, 2));
+          updatedCard = {
+            /*//card_id: savedCard.card_id, // del backend
+            card_id: savedCard._id,
+            //last_digits: updatedCard.card_number.slice(-4), // usamos el original, no el del backend
+            last_digits: savedCard.last_digits,
+            card_type: savedCard.card_type,*/
+
+            card_id: savedCard._id,
+            last_digits: updatedCard.card_number.slice(-4),
+            card_type: updatedCard.card_type,
+          };
+        } else {
+          updatedCard = {
+            card_id: new ObjectId().toHexString(),
+            last_digits: updatedCard.card_number.slice(-4),
+            card_type: updatedCard.card_type,
+          };
+        }
       }
 
       // Actualizar estado global
-      setCheckoutData(prev => ({
+      /*setCheckoutData((prev) => ({
         ...prev,
         address: updatedAddress,
-        card: updatedCard
-      }));
-
+        card: updatedCard,
+      }));*/
+      setCheckoutData((prev) => {
+        const newData = {
+          ...prev,
+          address: updatedAddress,
+          card: updatedCard,
+        };
+        console.log(
+          "✅ Datos finales del checkout antes de nextStep:",
+          newData
+        );
+        return newData;
+      });
       nextStep();
     } catch (error) {
-      console.error('Error al guardar datos:', error);
-      alert('Hubo un error al guardar tu dirección o tarjeta.');
+      console.error(
+        "Error al guardar datos:",
+        error.response?.data || error.message
+      );
+      alert(
+        "Error al guardar dirección/tarjeta:\n" +
+          JSON.stringify(error.response?.data || error.message, null, 2)
+      );
     }
   };
 
@@ -108,7 +183,7 @@ const CheckoutStep1 = ({ checkoutData, setCheckoutData, nextStep }) => {
           onChange={(e) =>
             setCheckoutData({
               ...checkoutData,
-              address: addresses.find(addr => addr._id === e.target.value),
+              address: addresses.find((addr) => addr._id === e.target.value),
             })
           }
         >
@@ -125,7 +200,7 @@ const CheckoutStep1 = ({ checkoutData, setCheckoutData, nextStep }) => {
             type="text"
             name="full_address"
             placeholder="Dirección completa"
-            value={checkoutData.address?.full_address || ''}
+            value={checkoutData.address?.full_address || ""}
             onChange={handleAddressChange}
           />
           <label>
@@ -158,7 +233,9 @@ const CheckoutStep1 = ({ checkoutData, setCheckoutData, nextStep }) => {
       {useSavedCard && cards.length > 0 ? (
         <select
           onChange={(e) => {
-            const selectedCard = cards.find(card => card._id === e.target.value);
+            const selectedCard = cards.find(
+              (card) => card._id === e.target.value
+            );
             setCheckoutData({
               ...checkoutData,
               card: {
@@ -180,7 +257,7 @@ const CheckoutStep1 = ({ checkoutData, setCheckoutData, nextStep }) => {
         <>
           <select
             name="card_type"
-            value={checkoutData.card?.card_type || ''}
+            value={checkoutData.card?.card_type || ""}
             onChange={handleCardChange}
           >
             <option value="">Seleccionar tipo</option>
@@ -191,28 +268,28 @@ const CheckoutStep1 = ({ checkoutData, setCheckoutData, nextStep }) => {
             type="text"
             name="card_number"
             placeholder="Número de tarjeta"
-            value={checkoutData.card?.card_number || ''}
+            value={checkoutData.card?.card_number || ""}
             onChange={handleCardChange}
           />
           <input
             type="text"
             name="cardholder_name"
             placeholder="Nombre del titular"
-            value={checkoutData.card?.cardholder_name || ''}
+            value={checkoutData.card?.cardholder_name || ""}
             onChange={handleCardChange}
           />
           <input
             type="text"
-            name="expiration_date"
+            name="expiration_month_year"
             placeholder="Fecha de vencimiento (MM/AA)"
-            value={checkoutData.card?.expiration_date || ''}
+            value={checkoutData.card?.expiration_month_year || ""}
             onChange={handleCardChange}
           />
           <input
             type="text"
             name="cvv"
             placeholder="CVV"
-            value={checkoutData.card?.cvv || ''}
+            value={checkoutData.card?.cvv || ""}
             onChange={handleCardChange}
           />
           <label>
@@ -241,4 +318,3 @@ const CheckoutStep1 = ({ checkoutData, setCheckoutData, nextStep }) => {
 };
 
 export default CheckoutStep1;
-

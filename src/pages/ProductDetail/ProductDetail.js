@@ -15,21 +15,10 @@ const ProductDetail = () => {
   const [product, setProduct] = useState(null);
   const [isHeartFilled, setIsHeartFilled] = useState(false); // Estado del corazón
 
-  /*const handleHeartClick = async () => {
-        setIsHeartFilled(!isHeartFilled);
-        try {
-            const userId = "6865bca5c6e74d38eae10c45"; // o desde localStorage
-            await favoriteService.addToFavorites(userId, product._id);
-            alert("Producto añadido a favoritos");
-        } catch (error) {
-            console.error("Error al añadir a favoritos:", error);
-            alert("Hubo un error al añadir a favoritos");
-        }
-    };*/
-
   const [favoriteRecord, setFavoriteRecord] = useState(null); // Guardar el _id de favoritos
   const storedUser = JSON.parse(localStorage.getItem("user"));
-  const userId = "6865bca5c6e74d38eae10c45";
+  //const userId = "6865bca5c6e74d38eae10c45";
+  const userId = storedUser?._id;
 
   useEffect(() => {
     const checkIfFavorite = async () => {

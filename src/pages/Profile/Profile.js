@@ -14,7 +14,8 @@ const Profile = () => {
 
   useEffect(() => {
   const storedUser = JSON.parse(localStorage.getItem('user'));
-  const userId = "6865bca5c6e74d38eae10c45";
+  //const userId = "6865bca5c6e74d38eae10c45";
+  const userId = storedUser?._id;
 
   const fetchUserData = async () => {
     try {
@@ -43,6 +44,17 @@ const Profile = () => {
   };
     fetchUserData();
   }, []);
+
+  const handleRemoveFavorite = async (favoriteId) => {
+  try {
+    await favoriteService.deleteFavoriteById(favoriteId);
+    setFavorites(prev => prev.filter(fav => fav.favorite_id !== favoriteId));
+    alert("Producto eliminado de favoritos.");
+  } catch (error) {
+    console.error("Error al eliminar de favoritos:", error);
+    alert("No se pudo eliminar el producto de favoritos.");
+  }
+};
 
   if (loading) {
     return <div>Cargando perfil...</div>;
@@ -101,8 +113,12 @@ const Profile = () => {
             <p className="favorite-added-date">
             Añadido el: {new Date(product.addedAt).toLocaleDateString()}
             </p>
-            {/* Si deseas agregar un botón para eliminar el favorito */}
-            {/* <button onClick={() => handleRemoveFavorite(product.favorite_id)}>Eliminar de favoritos</button> */}
+            <button 
+  onClick={() => handleRemoveFavorite(product.favorite_id)} 
+  className="profile-remove-favorite"
+>
+  Eliminar de favoritos
+</button>
             </div>
             ))}
           </div>
