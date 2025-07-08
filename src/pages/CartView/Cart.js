@@ -11,6 +11,7 @@ const Cart = () => {
   const [cart, setCart] = useState(null);
   const [selectedProducts, setSelectedProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [showConfetti, setShowConfetti] = useState(false);
 
   useEffect(() => {
     const fetchCart = async () => {
@@ -48,15 +49,10 @@ const Cart = () => {
       .toFixed(2);
   };
 
-  // Función para eliminar del carrito
   const handleRemoveToCart = async (product) => {
     try {
       await cartService.removeProductsFromCart(userId, [product.product_id]);
-      alert(
-        `El producto ${product.name} se ha eliminado del carrito de compras`
-      );
-
-      // Actualiza visualmente el carrito
+      
       const updatedCart = {
         ...cart,
         products: cart.products.filter(
@@ -72,65 +68,68 @@ const Cart = () => {
         `Error al eliminar el producto ${product.name} del carrito`,
         error
       );
-      alert("Hubo un error al eliminar el producto del carrito.");
     }
   };
 
-  // Función para vaciar el carrito
-  const handleEmptyCart = async () => {
-    try {
-      await cartService.emptyCart(userId);
-      alert(`Se ha vaciado el carrito de compras`);
-      window.location.reload();
-    } catch (error) {
-      alert("Hubo un error al vaciar el carrito de compras.");
-    }
-  };
-
-  // Función para comprar solo los seleccionados
   const handleBuySelected = () => {
     if (selectedProducts.length === 0) {
-      alert("Selecciona al menos un producto para comprar.");
+      alert("✨ Por favor selecciona al menos un producto para comprar ✨");
       return;
     }
 
-    // Filtrar los productos seleccionados
-    const selectedProductDetails = cart.products
-      .filter((p) => selectedProducts.includes(p.product_id))
-      .map((p) => ({
-        product_id: p.product_id,
-        name: p.name,
-        quantity: p.quantity,
-        unit_price: p.price,
-      }));
+    setShowConfetti(true);
+    setTimeout(() => {
+      const selectedProductDetails = cart.products
+        .filter((p) => selectedProducts.includes(p.product_id))
+        .map((p) => ({
+          product_id: p.product_id,
+          name: p.name,
+          quantity: p.quantity,
+          unit_price: p.price,
+        }));
 
-    const total = selectedProductDetails
-      .reduce((sum, p) => {
-        const price = parseFloat(p.unit_price?.$numberDecimal || p.unit_price);
-        return sum + price * p.quantity;
-      }, 0)
-      .toFixed(2);
+      const total = selectedProductDetails
+        .reduce((sum, p) => {
+          const price = parseFloat(p.unit_price?.$numberDecimal || p.unit_price);
+          return sum + price * p.quantity;
+        }, 0)
+        .toFixed(2);
 
-    localStorage.setItem(
-      "checkoutProducts",
-      JSON.stringify({
-        products: selectedProductDetails,
-        total: total,
-      })
-    );
+      localStorage.setItem(
+        "checkoutProducts",
+        JSON.stringify({
+          products: selectedProductDetails,
+          total: total,
+        })
+      );
 
-    // Redirigir al checkout
-    navigate("/checkout");
+      navigate("/checkout");
+    }, 1000);
   };
 
-  if (loading) return <div className="ca-cart-load">Cargando carrito...</div>;
+  if (loading) return (
+    <div className="ca-cart-load">
+      Cargando tu carrito mágico...
+      <span role="img" aria-label="loading">✨</span>
+    </div>
+  );
 
-  if (!cart || cart.products.length === 0)
-    return <div className="ca-cart-empty">Tu carrito está vacío.</div>;
+  if (!cart || cart.products.length === 0) return (
+    <div className="ca-cart-empty">
+      <span role="img" aria-label="empty cart" style={{ fontSize: '4rem', marginBottom: '1rem' }}>🛍️</span>
+      Tu carrito está vacío
+      <span style={{ fontSize: '1.2rem', marginTop: '1rem', color: 'var(--color-pink-dark)' }}>
+        ¡Hora de ir de shopping!
+      </span>
+    </div>
+  );
 
   return (
     <div className="ca-cart">
-      <h1 className="ca-cart-title">Mi Carrito</h1>
+      <h1 className="ca-cart-title">
+        Mi Carrito  
+      </h1>
+      
       <ul className="ca-cart-list">
         {cart.products.map((product) => (
           <li key={product.product_id} className="ca-cart-item">
@@ -160,7 +159,7 @@ const Cart = () => {
               className="ca-remove-from-cart"
               onClick={() => handleRemoveToCart(product)}
             >
-              Eliminar del carrito
+              Eliminar
             </button>
           </li>
         ))}
@@ -171,9 +170,20 @@ const Cart = () => {
           Total: <strong>S/ {calculateTotal()}</strong>
         </span>
         <button className="ca-buy-total-products" onClick={handleBuySelected}>
-          Comprar
+          Comprar ahora ✨
         </button>
       </div>
+
+      {showConfetti && (
+        <div className="confetti-container">
+          {[...Array(50)].map((_, i) => (
+            <div key={i} className="confetti" style={{
+              left: `${Math.random() * 100}%`,
+              animationDelay: `${Math.random() * 3}s`
+            }} />
+          ))}
+        </div>
+      )}
     </div>
   );
 };
