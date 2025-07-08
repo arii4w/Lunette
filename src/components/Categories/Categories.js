@@ -5,7 +5,7 @@ import './Categories.css';
 const Categories = () => {
   return (
     <div className="categories">
-      <h2>Categorías</h2>
+      <h2>Nuestras Colecciones</h2>
       <div className="category-list">
         <div className="category-item">
           <p>Collares</p>
@@ -15,6 +15,9 @@ const Categories = () => {
         </div>
         <div className="category-item">
           <p>Aretes</p>
+        </div>
+        <div className="category-item">
+          <p>Anillos</p>
         </div>
       </div>
     </div>
