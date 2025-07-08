@@ -8,6 +8,9 @@
     display: flex;
     flex-direction: column;
     position: relative;
+    font-family: var(--font-primary);
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-medium);
     transition: all 0.4s ease;
     box-shadow: 0 5px 15px rgba(189, 101, 113, 0.1);
     border: 2px solid var(--color-3);
@@ -117,6 +120,12 @@
   }
   
   .product-price {
+    font-family: var(--font-secondary);
+    font-size: var(--font-size-base);
+  }
+  
+  .product-description {
+    font-size: var(--font-size-base);
     font-size: 1.2rem;
     color: var(--color-2);
     font-weight: bold;

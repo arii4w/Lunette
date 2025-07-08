@@ -36,15 +36,17 @@
   }
   
   .hero-title {
-    font-size: 2rem;
-    font-weight: bold;
+    font-family: var(--font-primary);
+    font-size: var(--font-size-4xl);
+    font-weight: var(--font-bold);
     margin-bottom: 1rem;
     z-index: 2; /* Asegura que el título esté por encima de la capa semitransparente */
   }
   
   .hero-subtitle {
-    font-size: 1.2rem;
-    font-style: bold;
+    font-family: var(--font-secondary);
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-light);
     max-width: 600px;
     margin: 0 auto;
     z-index:2; /* Asegura que el subtítulo esté por encima de la capa semitransparente */
@@ -118,5 +120,15 @@
 
   footer {
     margin-top: 2rem; /* Asegura que haya espacio entre el contenido y el footer */
+  }
+  
+  .home-container {
+    font-family: var(--font-secondary);
+  }
+
+  .section-title {
+    font-family: var(--font-primary);
+    font-size: var(--font-size-3xl);
+    font-weight: var(--font-semibold);
   }
   
