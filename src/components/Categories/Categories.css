@@ -2,38 +2,86 @@
 .categories {
     text-align: center;
     margin: 4rem 0;
-  }
-  
-  .categories h2 {
+}
+
+.categories h2 {
     font-size: 1.5rem;
     color: #84393f;
-  }
-  
-  .category-list {
+}
+
+.category-list {
     display: flex;
     justify-content: center;
     gap: 2rem;
-  }
-  
-  .category-item {
+}
+
+.category-item {
     width: 150px;
     height: 150px;
-    background-color: #f4e6e3;
+    background: linear-gradient(145deg, #ffffff, #f4e6e3);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.3s ease;
-  }
-  
-  .category-item:hover {
-    background-color: #f0a5b4;
-  }
-  
-  .category-item p {
+    box-shadow: 
+        -8px -8px 15px rgba(255, 255, 255, 0.9),
+        8px 8px 15px rgba(132, 57, 63, 0.1),
+        inset -2px -2px 5px rgba(255, 255, 255, 0.7),
+        inset 2px 2px 5px rgba(132, 57, 63, 0.05);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.category-item::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        45deg,
+        transparent 32%,
+        rgba(255, 255, 255, 0.6) 35%,
+        rgba(255, 255, 255, 0.8) 38%,
+        rgba(255, 255, 255, 0.6) 41%,
+        transparent 44%
+    );
+    transform: rotate(45deg);
+    animation: shine 3s infinite;
+}
+
+.category-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 
+        -10px -10px 20px rgba(255, 255, 255, 0.9),
+        10px 10px 20px rgba(132, 57, 63, 0.15),
+        inset -2px -2px 5px rgba(255, 255, 255, 0.7),
+        inset 2px 2px 5px rgba(132, 57, 63, 0.05);
+    background: linear-gradient(145deg, #ffffff, #f0a5b4);
+}
+
+.category-item:hover::before {
+    animation: shine 2s infinite;
+}
+
+.category-item p {
     font-size: 1rem;
     color: #84393f;
     font-weight: bold;
-  }
+    position: relative;
+    z-index: 1;
+}
+
+@keyframes shine {
+    0% {
+        top: -50%;
+        left: -50%;
+    }
+    100% {
+        top: 150%;
+        left: 150%;
+    }
+}
   
