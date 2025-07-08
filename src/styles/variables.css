@@ -6,6 +6,12 @@
     --color-4: #F4E6E3;
     --color-5: #84393F;
     --color-6: #D1ADB5;
+    --color-pink-light: #FFE5F1;
+    --color-pink-medium: #FFB5D8;
+    --color-pink-dark: #FF80BC;
+    --color-yellow-soft: #FFE5B4;
+    --color-peach: #FFDAB9;
+    --color-rose-gold: #FFB4A2;
   /* Tipografía */
   --font-primary: 'Playfair Display', serif;
   --font-secondary: 'Raleway', sans-serif;
